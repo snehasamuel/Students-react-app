@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import Header from './Header'
 
@@ -9,6 +10,17 @@ const Add = () => {
     const submitValues=(()=>{
         var data={"name":name,"admission_no":admsn,"cgpa":cgpa}
         console.log(data)
+        axios.post("http://localhost:7000/api/addstud",data).then((response)=>{
+        console.log(response.data)
+        if(response.data.status=="Success")
+        {
+            alert("successfully inserted")
+        } 
+        else
+        {
+            alert("insertion failed")   
+        }   
+        })
     })
     
   return (

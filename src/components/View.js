@@ -1,14 +1,14 @@
 
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import Header from './Header'
 
 const View = () => {
-    var viewstud=[{"name":"Sneha","admission_no":"421","cgpa":"7.6"},
-    {"name":"Sanjo","admission_no":"65465","cgpa":"8.2"},
-    {"name":"Sajan","admission_no":"4216","cgpa":"8.9"},
-    {"name":"Mily","admission_no":"6431","cgpa":"6.9"},
-    {"name":"Leana","admission_no":"446132","cgpa":"7.6"},
-    {"name":"Sonu","admission_no":"61358","cgpa":"8.3"}]
+    var [viewstud,setViewstud]=useState([])
+    axios.get("http://localhost:7000/api/viewstud").then((response)=>{
+console.log(response.data)
+setViewstud(response.data)
+    })
   return (
     <div>
         <Header/>
