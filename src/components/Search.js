@@ -18,6 +18,23 @@ axios.post("http://localhost:7000/api/searchstud",readValue).then((response)=>{
    }
 
 
+   const deleteApi=(id)=>
+   {
+  const data={"_id":id} 
+console.log(id)
+axios.post("http://localhost:7000/api/deletestud",data).then((response)=>{
+console.log(response.data)
+if(response.data.status=="success")
+{
+    alert("data deleted")
+}
+else{
+    alert("failed to delete")
+}
+})
+   }
+
+
   return (
       
     <div>
@@ -46,6 +63,14 @@ axios.post("http://localhost:7000/api/searchstud",readValue).then((response)=>{
           <label for="" className='form-label'>CGPA</label>
   <input type="text" value={value.cgpa}  className="form-control"/>
 </div>
+
+<div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+    <br></br>
+<button onClick={()=>{deleteApi(value._id)}}  className="btn btn-info">DELETE</button>
+
+</div>
+
+
 </div>
            })}
 
