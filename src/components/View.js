@@ -1,14 +1,30 @@
 
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import Header from './Header'
 
 const View = () => {
-    var viewstud=[{"name":"Sneha","admission_no":"421","cgpa":"7.6"},
-    {"name":"Sanjo","admission_no":"65465","cgpa":"8.2"},
-    {"name":"Sajan","admission_no":"4216","cgpa":"8.9"},
-    {"name":"Mily","admission_no":"6431","cgpa":"6.9"},
-    {"name":"Leana","admission_no":"446132","cgpa":"7.6"},
-    {"name":"Sonu","admission_no":"61358","cgpa":"8.3"}]
+    var [viewstud,setViewstud]=useState([])
+    axios.get("http://localhost:7000/api/viewstud").then((response)=>{
+console.log(response.data)
+setViewstud(response.data)
+    })
+
+const deleteRow=((id)=>{
+const data={"_id":id}
+  console.log(id)
+  axios.post("http://localhost:7000/api/deletestud",data).then((response)=>{
+console.log(response.data)
+if(response.data.status=="success")
+{
+  alert("data deleted successfully")
+}
+else{
+  alert("deletion failed")
+}
+  })
+})
+
   return (
     <div>
         <Header/>
@@ -23,6 +39,7 @@ const View = () => {
       <th scope="col">Name</th>
       <th scope="col">Admission number</th>
       <th scope="col">CGPA</th>
+       <th scope="col">Delete</th>
      
     </tr>
   </thead>
@@ -32,6 +49,7 @@ const View = () => {
  <th scope="row">{value.name}</th>
  <td>{value.admission_no}</td>
  <td>{value.cgpa}</td>
+ <td> <button onClick={()=>{deleteRow(value._id)}} className="btn btn-danger">DELETE</button></td>
 
 </tr>
    })}
